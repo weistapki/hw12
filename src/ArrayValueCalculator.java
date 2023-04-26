@@ -1,8 +1,17 @@
 public class ArrayValueCalculator {
-    public static int doCalc(String[][] array) throws ArraySizeException, ArrayDataException {
-        if (array.length != 4 || array[0].length != 4) {
-                throw new ArraySizeException("The array must be 4x4 in size");
+    private static void validateArraySize(String[][] array) throws ArraySizeException {
+        if (array.length != 4) {
+            throw new ArraySizeException("The array must have 4 rows");
         }
+        for (String[] row : array) {
+            if (row.length != 4) {
+                throw new ArraySizeException("The array must have 4 columns");
+            }
+        }
+    }
+
+    public static int doCalc(String[][] array) throws ArraySizeException, ArrayDataException {
+        validateArraySize(array);
 
         int sum = 0;
         for (int i = 0; i < array.length; i++) {
@@ -14,10 +23,8 @@ public class ArrayValueCalculator {
                 }
             }
         }
-
         return sum;
     }
-
     public static void handleCalculation() {
         String[][] array = {{"1", "1", "1", "1"},
                             {"2", "2", "2", "2"},
